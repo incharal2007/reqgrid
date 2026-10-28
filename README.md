@@ -1,67 +1,65 @@
-# RESQGRID — Full-stack prototype
+# RESQGRID — Full-Stack Prototype
 
-A user-friendly emergency coordination prototype for India with a React frontend, Express API, PostgreSQL/PostGIS schema, live weather context, OpenStreetMap geodata, multi-agent workflow, resource allocation, and coordinator approval.
+RESQGRID is a user-friendly emergency coordination prototype designed for India. It helps coordinate emergency resources by combining geospatial data, weather context, resource allocation, and coordinator approval in a single platform.
 
-## Important scope / safety
-- This is a student/research prototype, **not an official emergency service** and not connected to government dispatch systems.
-- Real-time public context includes Open-Meteo weather and OpenStreetMap/Overpass map features. Public data availability and freshness vary.
-- Incidents and provider inventory created in the demo are labelled `SIMULATION` until entered/verified by an authorized user.
-- Dispatch is simulated in this version: approving an assignment updates the local database; it does not contact emergency services.
-- In India, users should contact official emergency services directly for real emergencies (112). Do not rely on this prototype for urgent assistance.
+The system includes a React frontend, Express API, PostgreSQL/PostGIS database schema, live weather information, OpenStreetMap geodata, and a multi-agent workflow for incident analysis and resource coordination.
 
-## Stack
-- Frontend: React + Vite + TypeScript + Tailwind-style custom CSS
-- Backend: Node.js + Express + TypeScript
-- Database: PostgreSQL + PostGIS (schema included)
-- Agents: deterministic tool-backed agents with optional Gemini LLM interpretation
-- Live context: Open-Meteo (no key for basic use), OpenStreetMap Overpass (public service, rate-limited)
-- Mapping UI: Leaflet + OpenStreetMap tiles
+## Important Scope and Safety
 
-## Quick start
-Requirements: Node.js 20+, npm, Docker (recommended).
+ **Student/research prototype:** RESQGRID is not an official emergency service and is not connected to government dispatch systems.
+ **Live public data:** Weather information comes from Open-Meteo, while map and facility data may come from OpenStreetMap and Overpass. Availability and freshness can vary.
+ **Simulated data:** Incidents and provider inventory created in the demo are labelled `SIMULATION` until entered or verified by an authorized user.
+ **Simulated dispatch:** Approving an assignment updates the local database. It does not contact emergency services or dispatch real responders.
+ **Emergency assistance:** In India, call **112** for emergencies. Do not rely on this prototype for urgent assistance.
 
-1. Copy environment variables:
-   ```bash
-   cp .env.example .env
-   ```
-2. Start PostgreSQL/PostGIS:
-   ```bash
-   docker compose up -d db
-   ```
-3. Install packages:
-   ```bash
-   npm install
-   ```
-4. Initialize the database:
-   ```bash
-   npm run db:init
-   ```
-5. Start frontend and API:
-   ```bash
-   npm run dev
-   ```
-6. Open `http://localhost:5173`. API health: `http://localhost:4000/api/health`.
+## Technology Stack
 
-If you do not have Docker/PostGIS available, you can run the frontend in demo mode but database-backed API functions require PostgreSQL. The frontend shows a clear demo/data-source label.
+ **Frontend:** React, Vite, TypeScript, Tailwind-style custom CSS
+ **Backend:** Node.js, Express, TypeScript
+ **Database:** PostgreSQL with PostGIS
+ **Agent workflow:** Deterministic, tool-backed agents with optional Gemini LLM interpretation
+ **Weather data:** Open-Meteo
+ **Geospatial data:** OpenStreetMap and Overpass API
+ **Mapping interface:** Leaflet and OpenStreetMap tiles
+ **Development environment:** npm and Docker
 
-## Optional Gemini agent interpretation
-Set `GEMINI_API_KEY` in `.env` to enable LLM-assisted extraction of free-text incident reports. The system still uses deterministic validation and scoring; model output is never treated as verified fact. Without the key, a rule-based fallback works.
+## Features
 
-## Live-data behavior
-- Weather endpoint: `GET /api/live/weather?lat=12.9716&lon=77.5946`
-- OSM facilities: `GET /api/live/facilities?lat=12.9716&lon=77.5946&radius=5000`
-- `lastUpdated`, `source`, and `dataMode` are returned by APIs.
-- Public APIs may rate-limit or fail. Failures are surfaced and not represented as live data.
-- Provider inventory freshness is based on authorized provider updates, not inferred from OSM.
+ Incident reporting and validation
+ Geospatial context for emergency incidents
+ Live weather context
+ Nearby facility discovery using public map data
+ Impact scoring and resource allocation recommendations
+ Provider inventory management
+ Coordinator review and approval
+ Simulated dispatch status tracking
+ Monitoring and resource reallocation workflow
+ Optional AI-assisted extraction of incident details
+ Data-source and freshness indicators
 
-## Core workflow
-Report → validate/structure → geospatial context → impact scoring → inventory query → allocation recommendation → coordinator approval → simulated dispatch status → monitoring/reallocation.
+## Project Workflow
 
-## Project structure
-- `apps/web`: React UI
-- `apps/api`: Express routes, agent workflow, live-source clients, allocation logic
-- `db/schema.sql`: PostgreSQL/PostGIS schema
-- `.env.example`: configuration
+The core workflow follows these stages:
 
-## Production work still required
-Authentication/authorization, audit review, provider verification, rate limiting, monitoring, secure deployment, formal API permissions, resilient queueing, real provider agreements, expert validation, and integration tests. Never connect this prototype to real dispatch without operational approval and extensive safety testing.
+**Incident Report → Validation and Structuring → Geospatial Context → Impact Scoring → Inventory Query → Allocation Recommendation → Coordinator Approval → Simulated Dispatch Status → Monitoring and Reallocation**
+
+## Project Structure
+
+```text
+resqgrid/
+├── apps/
+│   ├── web/          # React frontend
+│   └── api/          # Express API, agents and allocation logic
+├── db/
+│   └── schema.sql    # PostgreSQL/PostGIS database schema
+├── .env.example      # Example environment configuration
+├── docker-compose.yml
+└── package.json
+```
+
+*Note: The exact file structure may vary depending on the current implementation.*
+
+## Prerequisites
+
+ Node.js 20 or later
+ npm
