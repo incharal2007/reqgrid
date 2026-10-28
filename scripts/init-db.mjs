@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import pg from 'pg';
+import 'dotenv/config';
+const { Client } = pg;
+const url = process.env.DATABASE_URL;
+if (!url) throw new Error('DATABASE_URL is missing. Copy .env.example to .env first.');
+const client = new Client({ connectionString: url });
+await client.connect();
+const schema = fs.readFileSync(path.resolve('db/schema.sql'), 'utf8');
+await client.query(schema);
+console.log('RESQGRID database schema initialized.');
+await client.end();
