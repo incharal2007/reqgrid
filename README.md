@@ -4,7 +4,7 @@ RESQGRID is a user-friendly emergency coordination prototype designed for India.
 
 The system includes a React frontend, Express API, PostgreSQL/PostGIS database schema, live weather information, OpenStreetMap geodata, and a multi-agent workflow for incident analysis and resource coordination.
 
-## Important Scope and Safety
+Important Scope and Safety
 
  **Student/research prototype:** RESQGRID is not an official emergency service and is not connected to government dispatch systems.
  **Live public data:** Weather information comes from Open-Meteo, while map and facility data may come from OpenStreetMap and Overpass. Availability and freshness can vary.
@@ -56,8 +56,6 @@ resqgrid/
 ├── docker-compose.yml
 └── package.json
 ```
-
-*Note: The exact file structure may vary depending on the current implementation.*
 
 ## Prerequisites
 
